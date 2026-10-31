@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎃 我的万圣节主页</title> <!-- 改这里：网页标签名字 -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            /* 万圣节背景：深紫渐变 + 半透明小南瓜/幽灵装饰 */
+            background: linear-gradient(135deg, #1a0b2e 0%, #0f0517 100%);
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+            padding: 40px 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* 背景装饰：小南瓜和幽灵，不用改，想要更多可以复制 */
+        body::before, body::after {
+            content: "🎃";
+            position: fixed;
+            font-size: 40px;
+            opacity: 0.15;
+            z-index: 0;
+        }
+        body::before {
+            top: 10%;
+            left: 5%;
+            animation: float 6s ease-in-out infinite;
+        }
+        body::after {
+            content: "👻";
+            bottom: 15%;
+            right: 8%;
+            font-size: 50px;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 头像样式：南瓜橙边框 + 轻微晃动动画 */
+        .avatar-wrap {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 24px;
+            animation: wiggle 3s ease-in-out infinite;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-2deg); }
+            50% { transform: rotate(2deg); }
+        }
+
+        .avatar {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #ff7518; /* 南瓜橙边框 */
+            box-shadow: 0 0 20px rgba(255, 117, 24, 0.4); /* 橙色发光效果 */
+        }
+
+        /* 头像上的小南瓜装饰 */
+        .avatar-wrap::after {
+            content: "🎃";
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            font-size: 32px;
+        }
+
+        /* 状态点：换成南瓜橙 */
+        .status {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            width: 20px;
+            height: 20px;
+            background-color: #ff7518;
+            border-radius: 50%;
+            border: 3px solid #1a0b2e;
+        }
+
+        /* 昵称：万圣节风格字体颜色 + 小幽灵 */
+        .nickname {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #ffb347; /* 浅南瓜色 */
+            text-shadow: 0 0 10px rgba(255, 117, 24, 0.5);
+        }
+
+        /* 简介文字 */
+        .bio {
+            font-size: 15px;
+            color: #d4c5e0; /* 浅紫色文字 */
+            line-height: 1.6;
+            margin-bottom: 24px;
+            padding: 0 20px;
+        }
+
+        /* 信息条 */
+        .info-row {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+        }
+
+        .info-item {
+            font-size: 14px;
+            color: #b8a9c9;
+        }
+
+        .info-item strong {
+            color: #ff7518; /* 橙色强调 */
+            font-weight: 600;
+        }
+
+        /* 按钮：南瓜橙风格 */
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 32px;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 20px;
+            background-color: rgba(255, 117, 24, 0.15); /* 半透明橙 */
+            color: #ffb347;
+            text-decoration: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 500;
+            border: 1px solid rgba(255, 117, 24, 0.3);
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            background-color: rgba(255, 117, 24, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 117, 24, 0.2);
+        }
+
+        /* 标签：紫+橙配色 */
+        .tags {
+            margin-bottom: 32px;
+            padding: 0 20px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 6px 14px;
+            background-color: rgba(124, 58, 237, 0.2); /* 半透明紫 */
+            color: #d8b4fe;
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            border-radius: 20px;
+            font-size: 13px;
+            margin: 4px;
+        }
+
+        /* 展示卡片：万圣节风格 */
+        .showcase-card {
+            margin: 0 20px 40px;
+            background-color: rgba(45, 27, 78, 0.6);
+            border: 1px solid rgba(255, 117, 24, 0.2);
+            border-radius: 16px;
+            overflow: hidden;
+            text-align: left;
+            backdrop-filter: blur(10px);
+        }
+
+        .showcase-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .showcase-info {
+            padding: 16px;
+        }
+
+        .showcase-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #ffb347;
+        }
+
+        .showcase-desc {
+            font-size: 14px;
+            color: #c4b5d6;
+        }
+
+        /* 底部文字 */
+        .footer {
+            font-size: 12px;
+            color: #7c6f8c;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 1. 头像 + 状态点：改src里的链接换头像 -->
+        <div class="avatar-wrap">
+            <img src="https://picsum.photos/id/237/200/200" alt="我的头像" class="avatar">
+            <div class="status"></div>
+        </div>
+
+        <!-- 2. 昵称：改这里的文字 -->
+        <h1 class="nickname">👻 你的昵称 🎃</h1>
+
+        <!-- 3. 个人简介：改文字，换行用<br> -->
+        <p class="bio">
+            万圣节快乐！🦇<br>
+            13岁编程爱好者 | 会做简单网页<br>
+            不给糖就捣蛋！🍬
+        </p>
+
+        <!-- 4. 信息条：改文字，可加可删 -->
+        <div class="info-row">
+            <div class="info-item">UID <strong>123456</strong></div>
+            <div class="info-item">状态 <strong>捣蛋中</strong></div>
+            <div class="info-item">糖果 <strong>99+</strong></div>
+        </div>
+
+        <!-- 5. 社交按钮：改href里的链接和文字 -->
+        <div class="btn-group">
+            <a href="https://space.bilibili.com/" class="btn" target="_blank">
+                📺 我的B站
+            </a>
+            <a href="https://v.douyin.com/" class="btn" target="_blank">
+                🎵 我的抖音
+            </a>
+            <a href="mailto:你的邮箱@example.com" class="btn" target="_blank">
+                📧 联系邮箱
+            </a>
+        </div>
+
+        <!-- 6. 标签：改文字，复制可加新标签 -->
+        <div class="tags">
+            <span class="tag">🎃 万圣节限定</span>
+            <span class="tag">编程新手</span>
+            <span class="tag">网页开发</span>
+            <span class="tag">游戏爱好者</span>
+        </div>
+
+        <!-- 7. 展示卡片：改图片和文字，不想要就删掉 -->
+        <div class="showcase-card">
+            <img src="https://picsum.photos/id/1025/600/300" alt="展示图">
+            <div class="showcase-info">
+                <div class="showcase-title">🎃 我的万圣节网页作品</div>
+                <div class="showcase-desc">第一次做节日风格主页，超有成就感！</div>
+            </div>
+        </div>
+
+        <!-- 底部文字：可改可删 -->
+        <div class="footer">
+            Made with 🎃 by 你的名字 | 万圣节快乐 2026
+        </div>
+    </div>
+</body>
+</html>
